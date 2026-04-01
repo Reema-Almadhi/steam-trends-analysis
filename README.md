@@ -58,3 +58,64 @@ Free-to-play games made up **20.2%** of all releases between 2010 and 2024. The 
 Yet free-to-play titles make up only **8%** of the top 100 most recommended games in the same period. The gap is less surprising than it looks: the F2P model only gained real momentum after 2017, so most F2P titles haven't had the years of accumulated recommendations that older paid games have. Success is also highly concentrated- a handful of massive outliers like Dota 2 and Team Fortress 2 dominate, while the vast majority of F2P releases fade quickly.
 
 ---
+
+## Visualizations
+
+All charts are saved in the `results/` folder and are reproduced below.
+
+| Chart | File |
+|---|---|
+| Total games released per year | `results/total_games_per_year.png` |
+| Indie vs non-indie over time | `results/indie_vs_nonIndie.png` |
+| Indie market share vs top 100 | `results/indie_pie_comparison.png` |
+| F2P games over time | `results/f2p_evolution.png` |
+| F2P market share vs top 100 | `results/f2p_pie_comparison.png` |
+
+### Total Games Released (2010–2024)
+![Total games per year](results/total_games_per_year.png)
+
+### Indie vs Non-Indie Over Time
+![Indie vs non-indie](results/indie_vs_nonIndie.png)
+
+### Indie: Market Share vs Top 100
+![Indie pie comparison](results/indie_pie_comparison.png)
+
+### Free-to-Play Over Time
+![F2P evolution](results/f2p_evolution.png)
+
+### F2P: Market Share vs Top 100
+![F2P pie comparison](results/f2p_pie_comparison.png)
+
+---
+
+## Interactive Dashboard
+
+An interactive Power BI dashboard is included alongside this analysis. It allows year-by-year filtering of indie and F2P breakdowns, with KPI cards showing aggregate shares for any selected period.
+
+Dashboard screenshots:
+### Dashboard Overview
+![Dashboard overview with year filter](results/dashboard_overview.png)
+
+### Dashboard: 2024 Selected
+![Dashboard with 2024 selected](results/dashboard_2024.png)
+
+---
+
+## How to Run
+
+1. Clone the repository and set up a MySQL database named `steam_analysis`
+2. Import the dataset and run the schema setup (see `sql/` folder if included)
+3. Install Python dependencies:
+   ```
+   pip install pandas matplotlib seaborn sqlalchemy pymysql
+   ```
+4. Update the connection string in the notebook to match your MySQL credentials
+5. Run `steam_analysis.ipynb` top to bottom
+
+---
+
+## Notes on Methodology
+
+- **Top 100 definition:** The top 100 is based on `recommendations_total` filtered to games released between 2010 and 2024, making it directly comparable to the overall release data. It represents the most celebrated games within the same time window for an accurate comparison.
+- **Indie classification:** A game is classified as indie if it has the `Indie` genre tag in Steam's genre system. This is self-reported by developers, which means some boundary cases exist, but it is the standard classification used across Steam.
+- **Free-to-play classification:** A game is classified as free if `mat_final_price = 0`. This captures current pricing rather than release pricing, which means a small number of games that went free after launch are included.
